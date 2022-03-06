@@ -1,23 +1,9 @@
 import { Context } from "grammy";
-
-const tailOrHead = () => {
-    const rand = Math.random();
-    return rand > 0.5 ? "Tail" : "Head";
-}
+import { keyBoardMarkup, tailOrHead } from "../utils/core";
 
 export async function startHandler(ctx:Context) {
     ctx.replyWithChatAction("typing");
-    await ctx.reply(`Hello ${ctx.from.first_name}! So, tail or head?`, {
-        reply_markup: {
-            resize_keyboard: true,
-            one_time_keyboard: true,
-            keyboard: [
-                [{"text": "Tail"}],
-                [{"text": "Head"}]
-            ],
-            input_field_placeholder: "Tail or Head?"
-        }
-    });
+    await ctx.reply(`Hello ${ctx.from.first_name}! So, tail or head?`, keyBoardMarkup);
 }
 
 export async function toss(ctx:Context) {
@@ -37,4 +23,9 @@ export async function toss(ctx:Context) {
     await ctx.reply(`Coin lands on <b>${result}</b> 🪙`, {
         parse_mode: "HTML"
     });
+}
+
+export async function tossHelper(ctx:Context) {
+    ctx.replyWithChatAction("typing");
+    await ctx.reply(`So, tail or head?`, keyBoardMarkup );
 }
