@@ -14,10 +14,11 @@ export async function toss(ctx:Context) {
     const userText = ctx.message.text.toLowerCase();
     const result = tailOrHead().toLowerCase();
 
-    if (userText == result) {
-        await ctx.reply(`You win!`);
+    // Quick fix for "tails" and "heads"
+    if(userText.includes(result)) {
+        await ctx.reply(`You won!`);
     } else {
-        await ctx.reply(`You lose!`);
+        await ctx.reply(`You lost!`);
     }
 
     await ctx.reply(`Coin lands on <b>${result}</b> 🪙`, {
